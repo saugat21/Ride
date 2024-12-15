@@ -122,7 +122,7 @@ const Header = () => {
                         {userInfo.role === "driver" && (
                           <li>
                             <Link
-                              to="/dashboard/book-ride"
+                              to="driver/dashboard/available-ride"
                               className="dropdown-item"
                             >
                               Find Ride
