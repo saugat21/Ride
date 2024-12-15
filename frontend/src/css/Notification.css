@@ -1,0 +1,39 @@
+/* Base styles for the notification list */
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Ensure buttons wrap properly for smaller screens */
+.btn-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.alert-secondary {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .alert {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-group {
+        justify-content: flex-start;
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .alert {
+        flex-direction: row;
+    }
+}

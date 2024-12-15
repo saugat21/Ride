@@ -1,0 +1,113 @@
+.stylish-heading {
+    font-family: 'Poppins', sans-serif;
+    /* Use a modern font */
+    font-size: 1.5rem;
+    /* Large size */
+    font-weight: 600;
+    /* Bold font weight */
+    color: #4caf50;
+    /* Stylish green color */
+    text-transform: uppercase;
+    /* Make all text uppercase */
+    letter-spacing: 1px;
+    /* Add spacing between letters */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    /* Add a soft shadow */
+    background: linear-gradient(90deg, #ff7f50, #1e90ff);
+    /* Gradient effect */
+    -webkit-background-clip: text;
+    /* Clip background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make text fill transparent */
+    margin-bottom: 20px;
+    /* Spacing */
+}
+
+
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #48cacaa1;
+    border: none;
+    color: #333;
+    font-size: 3rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e8e51a;
+    transform: translateY(-2px);
+}
+
+
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 30px;
+    /* Space between image and form */
+    flex-wrap: wrap;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+    border-radius: 20px;
+    /* For responsiveness */
+}
+
+.login-page-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Optional shadow */
+}
+
+.login-form-container {
+    flex: 1;
+    margin: 0 auto;
+}
+
+.card{
+    margin-right: 60px;
+}
+
+
+/* Media query for smaller devices */
+@media (max-width: 768px) {
+    .login-page {
+             flex-direction: column; 
+             box-shadow: none; 
+             margin-left:40px;
+             margin-right: 40px;
+             height: 50vh; 
+             background: none;
+        }
+
+    .login-page-left {
+        display: none;
+        /* Hide the image section */
+    }
+
+   .card {
+    margin-top: 15px;
+        /* margin-left: 0px;
+        width: 100%;
+       box-shadow: none;  */
+       
+    } 
+    .btn-primary {
+        font-size: 1.2rem;
+        /* Adjust button font size for smaller screens */
+    }
+}

@@ -1,0 +1,93 @@
+.success-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* Align slightly above center */
+    height: 65vh;
+    background-color: #f9f9f9;
+    padding-bottom: 10%;
+    /* Push content upwards */
+}
+
+.success-container {
+    text-align: center;
+    background: #ffffff;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    /* More pronounced border radius */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Visible shadow */
+    transition: box-shadow 0.3s ease;
+    /* Smooth shadow transition */
+}
+
+.success-container:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    /* Stronger shadow on hover */
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #28a745;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+p {
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    /* Add soft rounded corners */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Smooth transitions for hover effects */
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle button shadow */
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    /* Stronger shadow on hover */
+}
+
+.back-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle button shadow */
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    /* Stronger shadow on hover */
+}

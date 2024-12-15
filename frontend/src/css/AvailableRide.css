@@ -1,0 +1,130 @@
+/* Container Styling */
+.available-rides-container {
+    padding: 20px;
+    max-width: 1500px;
+    margin: auto;
+    text-align: center;
+}
+
+.available-rides-container h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Table Styling */
+.rides-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+}
+
+.rides-table thead {
+    background-color: #f4f4f4;
+}
+
+.rides-table th,
+.rides-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.rides-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.rides-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button Styling */
+.accept-ride-button {
+    background-color: #28a745;
+    width: 150px;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.accept-ride-button:hover {
+    background-color: #218838;
+}
+
+/* AvailableRide.css */
+.status-badge {
+    width: 200;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+.status-badge.pending {
+    background-color: green;
+}
+
+.status-badge.confirmed {
+    background-color: yellow;
+    color: black;
+}
+
+.status-badge.completed {
+    background-color: red;
+}
+
+.status-action-button {
+    padding: 5px 10px;
+    border: none;
+    width: 150px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: rgb(250, 227, 51);
+    color: rgb(4, 3, 3);
+}
+
+.status-action-button:hover {
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .available-rides-container {
+        padding: 15px;
+    }
+
+    .available-rides-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .rides-table {
+        font-size: 0.9rem;
+    }
+
+    .rides-table th,
+    .rides-table td {
+        padding: 10px;
+    }
+
+    .rides-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 576px) {
+    .available-rides-container h1 {
+        font-size: 1.3rem;
+    }
+
+    .accept-ride-button {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
