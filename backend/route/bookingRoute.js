@@ -1,5 +1,5 @@
 import express from "express"
-import { createBooking, getBookingById, updateBookingPayment, getRideHistoryById, getAvailableRide, updateRideStatus, getBookingDetailsById,markNotification,deleteNotification,deleteBooking } from "../controller/bookingController.js"
+import { createBooking, getBookingById, updateBookingPayment, getRideHistoryById, getAvailableRide, updateRideStatus, getBookingDetailsById, markNotification, deleteNotification, deleteBooking } from "../controller/bookingController.js"
 import protect from "../middleware/protectMiddleware.js";
 
 
