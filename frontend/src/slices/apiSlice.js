@@ -10,6 +10,7 @@ const baseQuery = fetchBaseQuery({
         const userInfo = JSON.parse(localStorage.getItem('userInfo')); // assuming userInfo is stored in localStorage
 
         const token = userInfo ? userInfo.token : null;
+        console.log(token);
 
         // If token exists, set it in the Authorization header
         if (token) {
