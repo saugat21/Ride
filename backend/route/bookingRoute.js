@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.route('/').post(protect, createBooking);
 router.route('/:bookingId/payment').put(protect, updateBookingPayment);
-router.route('/history/:userId').get(protect, getRideHistoryById);
+router.route('/history/:userId').get( getRideHistoryById);
 router.route('/available-ride').get(getAvailableRide);
 router.route('/rides/:bookingId/status').patch(updateRideStatus);
 router.route('/:bookingId/mark-read').patch(markNotification);
