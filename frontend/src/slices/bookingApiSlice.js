@@ -8,6 +8,7 @@ export const bookingsApiSlice = apiSlice.injectEndpoints({
                 url: BOOKINGS_URL,
                 method: 'POST',
                 body: bookingData,
+                credentials: 'include',
             }),
         }),
         updataPayment: builder.mutation({
@@ -29,7 +30,8 @@ export const bookingsApiSlice = apiSlice.injectEndpoints({
         getRideHistoryByUserId: builder.query({
             query: (userId) => ({
                 url: `${BOOKINGS_URL}/history/${userId}`,
-                method: 'GET'
+                method: 'GET',
+                credentials: 'include',
             }),
             providesTags: (userId) => [{ id: userId }],
             keepUnusedDataFor: 5,

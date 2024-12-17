@@ -5,7 +5,7 @@ import { BASE_URL } from '../constant';
 const baseQuery = fetchBaseQuery({
 
      baseUrl: BASE_URL, 
-    credentials: 'include',
+     credentials: 'include',
      
      });
 
