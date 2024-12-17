@@ -18,6 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const userData = await login({ email, password }).unwrap();
+      console.log(userData);
       dispatch(setCredentials(userData));
       // Store the token in localStorage
       // const token = response.token; // Assuming the token is returned in response.data.token
