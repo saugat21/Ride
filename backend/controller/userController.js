@@ -1,7 +1,7 @@
 import User from "../model/userModel.js"
 import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/asyncHandler.js"
-import generateToken from "../utils/generateToken.js";
+import jwt from "jsonwebtoken"
 
 //@desc register user
 //@route POST /api/users
@@ -52,6 +52,12 @@ const loginUsers = asyncHandler(async (req, res) => {
         // Generate token and set it as a cookie
         // generateToken(res, user._id);
 
+        const token = jwt.sign(
+            { userId: user._id }, // Payload
+            process.env.JWT_SECRET, // Secret key
+            { expiresIn: '1d' } // Expiration time (1 day in this case)
+        );
+
         res.json({
             message: 'Login successful',
             _id: user._id,
@@ -60,6 +66,7 @@ const loginUsers = asyncHandler(async (req, res) => {
             role: user.role,
             location: user.location,
             phoneNumber: user.phoneNumber,
+            token,
         });
     } else {
         res.status(401);

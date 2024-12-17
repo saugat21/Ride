@@ -34,6 +34,7 @@ const Header = () => {
   const handleLogout = async () => {
     // await logout().unwrap();
     dispatch(removeCredentials());
+    localStorage.removeItem("jwt");
     toast.success("Logout Successfull");
     navigate("/login");
   };

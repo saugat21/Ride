@@ -5,7 +5,13 @@ import { BASE_URL } from '../constant';
 const baseQuery = fetchBaseQuery({
 
      baseUrl: BASE_URL, 
-     credentials: 'include',
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem('jwt');  // Get token from localStorage
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);  // Add token to Authorization header
+        }
+        return headers;
+    },
      
      });
 
