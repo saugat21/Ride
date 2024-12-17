@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000
 
 //yo chai frontend ko port ra backend ko port aarkai xa vane use garnu parxa hameley
 app.use(cors({
-    origin: 'https://ride-lilac.vercel.app', // Replace with your frontend's URL
+    origin: '*', // Replace with your frontend's URL
     credentials: true,
 }));
 
