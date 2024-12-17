@@ -7,7 +7,9 @@ import asyncHandler from "../middleware/asyncHandler.js"
 // @access  Private
 const createBooking = asyncHandler(async (req, res) => {
     const { name, phoneNumber, numberOfPeople, sourcePlace, destinationPlace, payment, amount } = req.body;
-
+    if (!req.user || !req.user._id) {
+        return res.status(401).json({ message: 'User not authenticated' });
+    }
     const booking = new Booking({
         user: req.user._id,
         name,
