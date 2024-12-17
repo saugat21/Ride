@@ -7,8 +7,8 @@ import protect from "../middleware/protectMiddleware.js";
 
 const router = express.Router();
 
-router.route('/').post(protect, createBooking);
-router.route('/:bookingId/payment').put(protect, updateBookingPayment);
+router.route('/').post( createBooking);
+router.route('/:bookingId/payment').put( updateBookingPayment);
 router.route('/history/:userId').get( getRideHistoryById);
 router.route('/available-ride').get(getAvailableRide);
 router.route('/rides/:bookingId/status').patch(updateRideStatus);
