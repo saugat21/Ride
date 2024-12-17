@@ -8,7 +8,7 @@ export const bookingsApiSlice = apiSlice.injectEndpoints({
                 url: BOOKINGS_URL,
                 method: 'POST',
                 body: bookingData,
-                credentials: 'include',
+               
             }),
         }),
         updataPayment: builder.mutation({

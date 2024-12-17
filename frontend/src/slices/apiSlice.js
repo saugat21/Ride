@@ -5,11 +5,17 @@ import { BASE_URL } from '../constant';
 const baseQuery = fetchBaseQuery({
 
      baseUrl: BASE_URL, 
-    prepareHeaders: (headers) => {
-        const token = localStorage.getItem('jwt');  // Get token from localStorage
+    prepareHeaders: (headers, { getState }) => {
+        // Retrieve the JWT token from localStorage where it's stored inside userInfo
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')); // assuming userInfo is stored in localStorage
+
+        const token = userInfo ? userInfo.token : null;
+
+        // If token exists, set it in the Authorization header
         if (token) {
-            headers.set('Authorization', `Bearer ${token}`);  // Add token to Authorization header
+            headers.set('Authorization', `Bearer ${token}`);
         }
+
         return headers;
     },
      
