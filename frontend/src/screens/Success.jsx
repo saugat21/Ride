@@ -15,10 +15,10 @@ const Success = () => {
   const [updatePayment] = useUpdataPaymentMutation();
 
   // Parse query parameters from the success URL
-  const queryParams = new URLSearchParams(location.search);
-  const bookingId = queryParams.get("bookingId");
-  const paymentStatus = queryParams.get("payment") === "true";
-  const amount = queryParams.get("amount");
+  // const queryParams = new URLSearchParams(location.search);
+  // const bookingId = queryParams.get("bookingId");
+  // const paymentStatus = queryParams.get("payment") === "true";
+  // const amount = queryParams.get("amount");
 
   // Handler for navigating to Ride History
   const handleRideHistoryClick = () => {
@@ -30,6 +30,15 @@ const Success = () => {
   };
 
   useEffect(() => {
+    console.log("Query parameters:", location.search); // Check the URL query string
+
+    const queryParams = new URLSearchParams(location.search);
+    const bookingId = queryParams.get("bookingId");
+    const paymentStatus = queryParams.get("payment") === "true";
+    const amount = queryParams.get("amount");
+
+    console.log("Parsed values:", { bookingId, paymentStatus, amount });
+
     if (bookingId && paymentStatus) {
       // Update the payment status in the database
       updatePayment({ bookingId, payment: paymentStatus, amount })
@@ -42,7 +51,22 @@ const Success = () => {
           console.error("Error updating payment status:", error);
         });
     }
-  }, [bookingId, paymentStatus, amount, updatePayment]);
+  }, [location.search, updatePayment]);
+
+  // useEffect(() => {
+  //   if (bookingId && paymentStatus) {
+  //     // Update the payment status in the database
+  //     updatePayment({ bookingId, payment: paymentStatus, amount })
+  //       .unwrap()
+  //       .then(() => {
+  //         toast.success("Payment Successful");
+  //       })
+  //       .catch((error) => {
+  //         toast.error("Failed to update payment status");
+  //         console.error("Error updating payment status:", error);
+  //       });
+  //   }
+  // }, [bookingId, paymentStatus, amount, updatePayment]);
 
   return (
     <div className="success-page">
