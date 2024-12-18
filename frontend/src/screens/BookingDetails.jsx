@@ -51,8 +51,8 @@ const BookingDetails = () => {
       tAmt: amount,
       pid: `ee2c3ca1-${bookingId}-${new Date().getTime()}`, // Payment ID (unique identifier for the transaction)
       scd: "EPAYTEST", // Merchant ID/Service Code
-      // su: `https://ride-lilac.vercel.app/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
-       su: `https://ride-lilac.vercel.app/user/success`, // Success URL after payment completion
+      su: `https://ride-lilac.vercel.app/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
+      //  su: `https://ride-lilac.vercel.app/user/success`, // Success URL after payment completion
       fu: "http://localhost:5173/user/failure", // Failure URL if payment fails
     };
 
