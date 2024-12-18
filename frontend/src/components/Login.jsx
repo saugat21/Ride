@@ -18,8 +18,13 @@ const Login = () => {
     e.preventDefault();
     try {
       const userData = await login({ email, password }).unwrap();
-      console.log(userData);
-      dispatch(setCredentials(userData));
+      const userInfoWithToken = {
+        ...userData,
+        token: userData.token, // Ensure token is included
+      };
+
+      dispatch(setCredentials(userInfoWithToken));
+      // dispatch(setCredentials(userData));
       // Store the token in localStorage
       // const token = response.token; // Assuming the token is returned in response.data.token
       // localStorage.setItem("jwt", token);
