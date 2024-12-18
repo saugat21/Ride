@@ -49,10 +49,9 @@ const BookingDetails = () => {
       pdc: 0,
       txAmt: 0,
       tAmt: amount,
-      pid: `ee2c3ca1-${bookingId}-${new Date().getTime()}`, // Payment ID (unique identifier for the transaction)
-      scd: "EPAYTEST", // Merchant ID/Service Code
-      // su: `https://ride-lilac.vercel.app/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
-      su: `https://ride-lilac.vercel.app/user/success`, // Success URL after payment completion
+      pid: `ee2c3ca1-${bookingId}-${new Date().getTime()}`, 
+      scd: "EPAYTEST", 
+       su: `https://ride-lilac.vercel.app/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
       fu: "http://localhost:5173/user/failure", // Failure URL if payment fails
     };
 
@@ -76,18 +75,6 @@ const BookingDetails = () => {
     post(path, params);
   };
 
-  if (window.location.href.includes("su")) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const bookingId = urlParams.get("bookingId");
-    const payment = urlParams.get("payment");
-    const amount = urlParams.get("amount");
-
-    if (bookingId && payment && amount) {
-      navigate(
-        `/user/success?bookingId=${bookingId}&payment=${payment}&amount=${amount}`
-      );
-    }
-  }
 
   const {
     name,

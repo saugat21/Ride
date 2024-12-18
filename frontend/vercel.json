@@ -1,9 +1,0 @@
-{
-  "redirects": [
-    {
-      "source": "/user/success",
-      "destination": "/",
-      "permanent": false
-    }
-  ]
-}
