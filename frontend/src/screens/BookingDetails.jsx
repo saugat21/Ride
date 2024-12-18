@@ -11,8 +11,6 @@ const BookingDetails = () => {
   const { data, error, isLoading } = useGetBookingByIdQuery(bookingId);
   const [amount, setAmount] = useState(0);
 
- 
-
   useEffect(() => {
     if (error) {
       toast.error("Failed to fetch booking details");
@@ -26,14 +24,16 @@ const BookingDetails = () => {
       const ratePerKm = 20; // Rate per kilometer
       const peopleCount = data.numberOfPeople || 1; // Default to 1 person if not provided
       // Calculate amount (assuming rate is 20 Rs per km)
-      const calculatedAmount = (distanceInKm * ratePerKm * peopleCount).toFixed(2); // 20 Rs per km
+      const calculatedAmount = (distanceInKm * ratePerKm * peopleCount).toFixed(
+        2
+      ); // 20 Rs per km
 
       setAmount(parseFloat(calculatedAmount));
     }
   }, [data]);
 
   if (isLoading) {
-    return <Loader/>
+    return <Loader />;
   }
 
   if (!data) {
@@ -51,8 +51,8 @@ const BookingDetails = () => {
       tAmt: amount,
       pid: `ee2c3ca1-${bookingId}-${new Date().getTime()}`, // Payment ID (unique identifier for the transaction)
       scd: "EPAYTEST", // Merchant ID/Service Code
-      su: `https://ride-lilac.vercel.app/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
-      //  su: `https://ride-lilac.vercel.app/user/success`, // Success URL after payment completion
+      // su: `https://ride-lilac.vercel.app/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
+      su: `https://ride-lilac.vercel.app/user/success`, // Success URL after payment completion
       fu: "http://localhost:5173/user/failure", // Failure URL if payment fails
     };
 
@@ -76,6 +76,19 @@ const BookingDetails = () => {
     post(path, params);
   };
 
+  if (window.location.href.includes("su")) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookingId = urlParams.get("bookingId");
+    const payment = urlParams.get("payment");
+    const amount = urlParams.get("amount");
+
+    if (bookingId && payment && amount) {
+      navigate(
+        `/user/success?bookingId=${bookingId}&payment=${payment}&amount=${amount}`
+      );
+    }
+  }
+
   const {
     name,
     phoneNumber,
@@ -85,68 +98,61 @@ const BookingDetails = () => {
     distance,
   } = data;
 
- return (
-   <div className="container mt-3">
-     <h2 className="text-center mb-3 fw-bold text-warning">Booking Details</h2>
-     <div className="card shadow-lg border-0 rounded-4">
-       <div className="card-body p-4">
-         <h5 className="card-title text-center text-secondary mb-3">
-           <span className="fw-bold">Booking ID:</span> {bookingId}
-         </h5>
-         <div className="mb-3">
-           <p className="card-text fs-5">
-             <span className="fw-bold text-dark">Name:</span> {name}
-           </p>
-           <p className="card-text fs-5">
-             <span className="fw-bold text-dark">Phone Number:</span>
-             {phoneNumber}
-           </p>
-           <p className="card-text fs-5">
-             <span className="fw-bold text-dark">Number of People:</span>{" "}
-             {numberOfPeople}
-           </p>
-           <p className="card-text fs-5">
-             <span className="fw-bold text-dark">Source Place:</span>{" "}
-             {sourcePlace.name}
-           </p>
-           <p className="card-text fs-5">
-             <span className="fw-bold text-dark">Destination Place:</span>{" "}
-             {destinationPlace.name}
-           </p>
-           <p className="card-text fs-5">
-             <span className="fw-bold text-dark">Distance:</span> {distance} km
-           </p>
-           <p className="card-text fs-5">
-             <span className="fw-bold text-dark">Amount:</span>{" "}
-             <span className="text-success fw-bold">{amount} Rs</span>
-           </p>
-         </div>
-         <div className="row align-items-center mt-4">
-           <div className="col-auto d-flex align-items-center">
-            
-             <label htmlFor="esewaRadio">
-               <img
-                 src={esewaLogo}
-                 alt="eSewa"
-                 className="p-1"
-                 height="50"
-               />
-             </label>
-           </div>
-           <div className="col">
-             <button
-               className="btn btn-success  fw-bold py-2 text-uppercase"
-               onClick={callEsewa}
-             >
-               Pay with eSewa
-             </button>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- );
-
+  return (
+    <div className="container mt-3">
+      <h2 className="text-center mb-3 fw-bold text-warning">Booking Details</h2>
+      <div className="card shadow-lg border-0 rounded-4">
+        <div className="card-body p-4">
+          <h5 className="card-title text-center text-secondary mb-3">
+            <span className="fw-bold">Booking ID:</span> {bookingId}
+          </h5>
+          <div className="mb-3">
+            <p className="card-text fs-5">
+              <span className="fw-bold text-dark">Name:</span> {name}
+            </p>
+            <p className="card-text fs-5">
+              <span className="fw-bold text-dark">Phone Number:</span>
+              {phoneNumber}
+            </p>
+            <p className="card-text fs-5">
+              <span className="fw-bold text-dark">Number of People:</span>{" "}
+              {numberOfPeople}
+            </p>
+            <p className="card-text fs-5">
+              <span className="fw-bold text-dark">Source Place:</span>{" "}
+              {sourcePlace.name}
+            </p>
+            <p className="card-text fs-5">
+              <span className="fw-bold text-dark">Destination Place:</span>{" "}
+              {destinationPlace.name}
+            </p>
+            <p className="card-text fs-5">
+              <span className="fw-bold text-dark">Distance:</span> {distance} km
+            </p>
+            <p className="card-text fs-5">
+              <span className="fw-bold text-dark">Amount:</span>{" "}
+              <span className="text-success fw-bold">{amount} Rs</span>
+            </p>
+          </div>
+          <div className="row align-items-center mt-4">
+            <div className="col-auto d-flex align-items-center">
+              <label htmlFor="esewaRadio">
+                <img src={esewaLogo} alt="eSewa" className="p-1" height="50" />
+              </label>
+            </div>
+            <div className="col">
+              <button
+                className="btn btn-success  fw-bold py-2 text-uppercase"
+                onClick={callEsewa}
+              >
+                Pay with eSewa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default BookingDetails;
