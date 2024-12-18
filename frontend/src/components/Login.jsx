@@ -20,7 +20,7 @@ const Login = () => {
       const userData = await login({ email, password }).unwrap();
       const userInfoWithToken = {
         ...userData,
-        token: userData.token, // Ensure token is included
+        token: userData.token || userData?.token,
       };
 
       dispatch(setCredentials(userInfoWithToken));
