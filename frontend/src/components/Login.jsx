@@ -24,10 +24,6 @@ const Login = () => {
       };
 
       dispatch(setCredentials(userInfoWithToken));
-      // dispatch(setCredentials(userData));
-      // Store the token in localStorage
-      // const token = response.token; // Assuming the token is returned in response.data.token
-      // localStorage.setItem("jwt", token);
       toast.success("Login Successful");
       navigate(
         userData.role === "driver" ? "/driver/dashboard" : "/user/dashboard"
