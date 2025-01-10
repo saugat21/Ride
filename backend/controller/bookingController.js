@@ -228,7 +228,7 @@ const deleteNotification = asyncHandler(async (req, res) => {
         const booking = await Booking.findByIdAndUpdate(
             bookingId, 
             { "notification.isDeleted": true },
-            { new: true }  
+            { new: tru }  
         );
         res.status(200).json(booking);
     } catch (error) {
