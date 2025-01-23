@@ -30,7 +30,7 @@ const registerUsers = asyncHandler(async (req, res) => {
     });
     const createdUser = await user.save();
     // Generate token and set it as a cookie
-    // generateToken(res, createdUser._id);
+     generateToken(res, createdUser._id);
     res.status(201).json({
         _id: createdUser._id,
         name: createdUser.name,
@@ -50,7 +50,7 @@ const loginUsers = asyncHandler(async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
         // Generate token and set it as a cookie
-        // generateToken(res, user._id);
+         generateToken(res, user._id);
 
         const token = jwt.sign(
             { userId: user._id }, // Payload
