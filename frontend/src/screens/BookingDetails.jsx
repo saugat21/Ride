@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import esewaLogo from "../assets/esewa.png";
+import cashOnDelivery from "../assets/cc.png"
 import { useGetBookingByIdQuery } from "../slices/bookingApiSlice";
 import Loader from "../components/Loader";
 
@@ -51,7 +52,7 @@ const BookingDetails = () => {
       tAmt: amount,
       pid: `ee2c3ca1-${bookingId}-${new Date().getTime()}`, 
       scd: "EPAYTEST", 
-       su: `https://ride-lilac.vercel.app/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
+       su: `http://localhost:5173/user/success?bookingId=${bookingId}&payment=true&amount=${amount}`, // Success URL after payment completion
       fu: "http://localhost:5173/user/failure", // Failure URL if payment fails
     };
 
@@ -122,18 +123,26 @@ const BookingDetails = () => {
             </p>
           </div>
           <div className="row align-items-center mt-4">
-            <div className="col-auto d-flex align-items-center">
-              <label htmlFor="esewaRadio">
-                <img src={esewaLogo} alt="eSewa" className="p-1" height="50" />
-              </label>
+            {/* eSewa Payment Option */}
+            <div
+              className="col-12 col-md-6 d-flex align-items-center mb-2"
+              onClick={callEsewa}
+              style={{ cursor: "pointer" }}
+            >
+              <img src={esewaLogo} alt="eSewa" className="p-1" height="70" />
             </div>
-            <div className="col">
-              <button
-                className="btn btn-success  fw-bold py-2 text-uppercase"
-                onClick={callEsewa}
-              >
-                Pay with eSewa
-              </button>
+
+            <div
+              className="col-12 col-md-6 d-flex align-items-center mb-2"
+             
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={cashOnDelivery}
+                alt="Cash on Delivery"
+                className="p-1"
+                height="60"
+              />
             </div>
           </div>
         </div>
