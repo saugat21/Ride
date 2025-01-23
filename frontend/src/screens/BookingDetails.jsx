@@ -124,7 +124,7 @@ const BookingDetails = () => {
             </p>
           </div>
           <div
-            className="row  align-items-center mt-4 gap-2"
+            className="row  align-items-center mt-4 gap-5"
             style={{ gap: "10px" }} 
           >
             <div
