@@ -87,9 +87,10 @@ const BookingDetails = () => {
   } = data;
 
   return (
-    <div className="container mt-3">
-      <h2 className="text-center mb-3 fw-bold text-warning">Booking Details</h2>
-      <div className="card shadow-lg border-0 rounded-4">
+    <>
+    <h2 className="text-center mb-3 fw-bold text-warning">Booking Details</h2> 
+    <div className="container d-flex align-items-center justify-content-center ">
+      <div className="card shadow-lg border-0 rounded-4 mx-3">
         <div className="card-body p-4">
           <h5 className="card-title text-center text-secondary mb-3">
             <span className="fw-bold">Booking ID:</span> {bookingId}
@@ -99,7 +100,7 @@ const BookingDetails = () => {
               <span className="fw-bold text-dark">Name:</span> {name}
             </p>
             <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Phone Number:</span>
+              <span className="fw-bold text-dark">Phone Number:</span>{" "}
               {phoneNumber}
             </p>
             <p className="card-text fs-5">
@@ -122,10 +123,12 @@ const BookingDetails = () => {
               <span className="text-success fw-bold">{amount} Rs</span>
             </p>
           </div>
-          <div className="row align-items-center mt-4">
-            {/* eSewa Payment Option */}
+          <div
+            className="row  align-items-center mt-4 gap-2"
+            style={{ gap: "10px" }} 
+          >
             <div
-              className="col-12 col-md-6 d-flex align-items-center mb-2"
+              className="col-auto d-flex justify-content-center mb-1"
               onClick={callEsewa}
               style={{ cursor: "pointer" }}
             >
@@ -133,8 +136,7 @@ const BookingDetails = () => {
             </div>
 
             <div
-              className="col-12 col-md-6 d-flex align-items-center mb-2"
-             
+              className="col-auto d-flex justify-content-center mb-1"
               style={{ cursor: "pointer" }}
             >
               <img
@@ -148,6 +150,7 @@ const BookingDetails = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
