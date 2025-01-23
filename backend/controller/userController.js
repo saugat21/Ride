@@ -1,14 +1,13 @@
 import User from "../model/userModel.js"
 import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/asyncHandler.js"
-import jwt from "jsonwebtoken"
+import generateToken from "../utils/generateToken.js"
 
 //@desc register user
 //@route POST /api/users
 //@access Public
 const registerUsers = asyncHandler(async (req, res) => {
     const { name, email, password, role, licenseNumber, vehicleDetails,phoneNumber } = req.body;
-
     const userExists = await User.findOne({ email });
 
     if (userExists) {
@@ -20,7 +19,7 @@ const registerUsers = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = new User({
+    const user = await User.create({
         name,
         email,
         password: hashedPassword,
@@ -28,16 +27,21 @@ const registerUsers = asyncHandler(async (req, res) => {
         phoneNumber,
         driverDetails: role === 'driver' ? { licenseNumber, vehicleDetails } : undefined
     });
-    const createdUser = await user.save();
-    // Generate token and set it as a cookie
-     generateToken(res, createdUser._id);
-    res.status(201).json({
-        _id: createdUser._id,
-        name: createdUser.name,
-        email: createdUser.email,
-        role: createdUser.role,
-        phoneNumber:createdUser.phoneNumber,
-    });
+    
+    if(user){
+        // Generate token and set it as a cookie
+        generateToken(res, user._id);
+        res.status(200).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            phoneNumber: user.phoneNumber,
+        });
+    }else{
+        res.status(400);
+        throw new Error('invalid user data!')
+    } 
 })
 
 //@desc Login user
@@ -50,14 +54,7 @@ const loginUsers = asyncHandler(async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
         // Generate token and set it as a cookie
-         generateToken(res, user._id);
-
-        const token = jwt.sign(
-            { userId: user._id }, // Payload
-            process.env.JWT_SECRET, // Secret key
-            { expiresIn: '1d' } // Expiration time (1 day in this case)
-        );
-
+        generateToken(res, user._id);
         res.json({
             message: 'Login successful',
             _id: user._id,
@@ -66,7 +63,6 @@ const loginUsers = asyncHandler(async (req, res) => {
             role: user.role,
             location: user.location,
             phoneNumber: user.phoneNumber,
-            token,
         });
     } else {
         res.status(401);
@@ -82,8 +78,6 @@ const logoutUser = asyncHandler(async (req, res) => {
         httpOnly: true,
         expires: new Date(0),
     });
-
-
     res.status(200).json({ message: 'Logged out successfully' });
 });
 

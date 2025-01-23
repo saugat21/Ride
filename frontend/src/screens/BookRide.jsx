@@ -34,6 +34,7 @@ const BookRide = () => {
     if (userInfo) {
       setName(userInfo.name || "");
       setSourcePlace(userInfo.placeName || "");
+      setPhoneNumber(userInfo.phoneNumber || '');
       setSourceCoordinates({
         lat: userInfo.location.coordinates[1],
         lng: userInfo.location.coordinates[0],

@@ -18,12 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const userData = await login({ email, password }).unwrap();
-      const userInfoWithToken = {
-        ...userData,
-        token: userData.token || userData?.token,
-      };
-
-      dispatch(setCredentials(userInfoWithToken));
+      dispatch(setCredentials(userData));
       toast.success("Login Successful");
       navigate(
         userData.role === "driver" ? "/driver/dashboard" : "/user/dashboard"

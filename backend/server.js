@@ -20,10 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 5000
 
 //yo chai frontend ko port ra backend ko port aarkai xa vane use garnu parxa hameley
-app.use(cors({
-    origin: 'https://ride-lilac.vercel.app', // Your deployed frontend URL
-    credentials: true,
-}));
+app.use(cors());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
