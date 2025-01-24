@@ -41,7 +41,6 @@ const Map = () => {
         const data = await response.json();
         const placeName = data.display_name; // Extract place name from response
         updateLocation(lat, lng, placeName);
-        console.log("Fetched place name:", data.display_name);
       } catch (error) {
         console.error("Error fetching place details:", error);
       }
