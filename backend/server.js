@@ -33,14 +33,13 @@ app.use((req, res, next) => {
 });
 //yo chai frontend ko port ra backend ko port aarkai xa vane use garnu parxa hameley
 app.use(cors({
-    origin: ["https://ride-j8uy0eer6-saugat-barals-projects.vercel.app/"], // Replace with your Vercel frontend URL
+    origin: ["https://ride-j8uy0eer6-saugat-barals-projects.vercel.app/"], 
     methods: ["GET", "POST", "PUT","PATCH", "DELETE", "OPTIONS"], 
     allowedHeaders: ["Content-Type", "Authorization"], 
     credentials: true,
 }));
 
-// ✅ Handle OPTIONS Preflight Requests
-// app.options("*", cors());
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
