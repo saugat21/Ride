@@ -83,7 +83,6 @@ const BookingDetails = () => {
  const handleCOD =async () => {
   try {
       await updateAmount({ bookingId, amount }).unwrap();
-      toast.success("Amount updated successfully!");
       navigate(`/user/success`, {
         state: {
           bookingId,

@@ -19,18 +19,18 @@ const app = express();
 
 const PORT = process.env.PORT || 5000
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://ride-g122hnf00-saugat-barals-projects.vercel.app"); // ✅ Replace with your Vercel URL
-    res.header("Access-Control-Allow-Methods", "GET, POST,PATCH, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.header("Access-Control-Allow-Credentials", "true");
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "https://ride-g122hnf00-saugat-barals-projects.vercel.app"); // ✅ Replace with your Vercel URL
+//     res.header("Access-Control-Allow-Methods", "GET, POST,PATCH, PUT, DELETE, OPTIONS");
+//     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//     res.header("Access-Control-Allow-Credentials", "true");
 
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(204);
-    }
+//     if (req.method === "OPTIONS") {
+//         return res.sendStatus(204);
+//     }
 
-    next();
-});
+//     next();
+// });
 //yo chai frontend ko port ra backend ko port aarkai xa vane use garnu parxa hameley
 app.use(cors({
     origin: ["https://ride-g122hnf00-saugat-barals-projects.vercel.app/"], // Replace with your Vercel frontend URL
