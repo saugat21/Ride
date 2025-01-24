@@ -3,13 +3,17 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import esewaLogo from "../assets/esewa.png";
+import { useNavigate } from "react-router-dom";
 import cashOnDelivery from "../assets/cc.png"
 import { useGetBookingByIdQuery } from "../slices/bookingApiSlice";
+import { useUpdateAmountMutation } from "../slices/bookingApiSlice";
 import Loader from "../components/Loader";
 
 const BookingDetails = () => {
-  const { bookingId } = useParams(); // Extract bookingId from URL params
+  const { bookingId } = useParams(); 
+  const navigate = useNavigate();
   const { data, error, isLoading } = useGetBookingByIdQuery(bookingId);
+   const [updateAmount] = useUpdateAmountMutation();
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
@@ -76,7 +80,20 @@ const BookingDetails = () => {
     post(path, params);
   };
 
-
+ const handleCOD =async () => {
+  try {
+      await updateAmount({ bookingId, amount }).unwrap();
+      toast.success("Amount updated successfully!");
+      navigate(`/user/success`, {
+        state: {
+          bookingId,
+          amount,
+        },
+      });
+    } catch (error) {
+      toast.error("Error updating amount");
+    }
+ };
   const {
     name,
     phoneNumber,
@@ -88,68 +105,70 @@ const BookingDetails = () => {
 
   return (
     <>
-    <h2 className="text-center mb-3 fw-bold text-warning">Booking Details</h2> 
-    <div className="container d-flex align-items-center justify-content-center ">
-      <div className="card shadow-lg border-0 rounded-4 mx-3">
-        <div className="card-body p-4">
-          <h5 className="card-title text-center text-secondary mb-3">
-            <span className="fw-bold">Booking ID:</span> {bookingId}
-          </h5>
-          <div className="mb-3">
-            <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Name:</span> {name}
-            </p>
-            <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Phone Number:</span>{" "}
-              {phoneNumber}
-            </p>
-            <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Number of People:</span>{" "}
-              {numberOfPeople}
-            </p>
-            <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Source Place:</span>{" "}
-              {sourcePlace.name}
-            </p>
-            <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Destination Place:</span>{" "}
-              {destinationPlace.name}
-            </p>
-            <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Distance:</span> {distance} km
-            </p>
-            <p className="card-text fs-5">
-              <span className="fw-bold text-dark">Amount:</span>{" "}
-              <span className="text-success fw-bold">{amount} Rs</span>
-            </p>
-          </div>
-          <div
-            className="row  align-items-center mt-4 gap-5"
-            style={{ gap: "10px" }} 
-          >
-            <div
-              className="col-auto d-flex justify-content-center mb-1"
-              onClick={callEsewa}
-              style={{ cursor: "pointer" }}
-            >
-              <img src={esewaLogo} alt="eSewa" className="p-1" height="70" />
+      <h2 className="text-center mb-3 fw-bold text-warning">Booking Details</h2>
+      <div className="container d-flex align-items-center justify-content-center ">
+        <div className="card shadow-lg border-0 rounded-4 mx-3">
+          <div className="card-body p-4">
+            <h5 className="card-title text-center text-secondary mb-3">
+              <span className="fw-bold">Booking ID:</span> {bookingId}
+            </h5>
+            <div className="mb-3">
+              <p className="card-text fs-5">
+                <span className="fw-bold text-dark">Name:</span> {name}
+              </p>
+              <p className="card-text fs-5">
+                <span className="fw-bold text-dark">Phone Number:</span>{" "}
+                {phoneNumber}
+              </p>
+              <p className="card-text fs-5">
+                <span className="fw-bold text-dark">Number of People:</span>{" "}
+                {numberOfPeople}
+              </p>
+              <p className="card-text fs-5">
+                <span className="fw-bold text-dark">Source Place:</span>{" "}
+                {sourcePlace.name}
+              </p>
+              <p className="card-text fs-5">
+                <span className="fw-bold text-dark">Destination Place:</span>{" "}
+                {destinationPlace.name}
+              </p>
+              <p className="card-text fs-5">
+                <span className="fw-bold text-dark">Distance:</span> {distance}{" "}
+                km
+              </p>
+              <p className="card-text fs-5">
+                <span className="fw-bold text-dark">Amount:</span>{" "}
+                <span className="text-success fw-bold">{amount} Rs</span>
+              </p>
             </div>
-
             <div
-              className="col-auto d-flex justify-content-center mb-1"
-              style={{ cursor: "pointer" }}
+              className="row  align-items-center mt-4 gap-5"
+              style={{ gap: "10px" }}
             >
-              <img
-                src={cashOnDelivery}
-                alt="Cash on Delivery"
-                className="p-1"
-                height="60"
-              />
+              <div
+                className="col-auto d-flex justify-content-center mb-1"
+                onClick={callEsewa}
+                style={{ cursor: "pointer" }}
+              >
+                <img src={esewaLogo} alt="eSewa" className="p-1" height="70" />
+              </div>
+
+              <div
+                className="col-auto d-flex justify-content-center mb-1"
+                onClick={handleCOD}
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  src={cashOnDelivery}
+                  alt="Cash on Delivery"
+                  className="p-1"
+                  height="60"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

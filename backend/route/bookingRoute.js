@@ -1,5 +1,5 @@
 import express from "express"
-import { createBooking, getBookingById, updateBookingPayment, getRideHistoryById, getAvailableRide, updateRideStatus, getBookingDetailsById, markNotification, deleteNotification, deleteBooking } from "../controller/bookingController.js"
+import { createBooking,updateBookingAmount, getBookingById, updateBookingPayment, getRideHistoryById, getAvailableRide, updateRideStatus, getBookingDetailsById, markNotification, deleteNotification, deleteBooking } from "../controller/bookingController.js"
 
 
 
@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.route('/').post(createBooking);
 router.route('/:bookingId/payment').put( updateBookingPayment);
+router.route('/:bookingId/amount').patch( updateBookingAmount);
 router.route('/history/:userId').get( getRideHistoryById);
 router.route('/available-ride').get(getAvailableRide);
 router.route('/rides/:bookingId/status').patch(updateRideStatus);

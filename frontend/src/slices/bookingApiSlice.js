@@ -18,6 +18,14 @@ export const bookingsApiSlice = apiSlice.injectEndpoints({
                 body: { payment, amount },
             })
         }),
+        updateAmount: builder.mutation({
+            query: ({ bookingId, amount }) => ({
+                url: `${BOOKINGS_URL}/${bookingId}/amount`,
+                method: 'PATCH',
+                body: { amount },
+            }),
+            invalidatesTags: ['Booking'],
+        }),
         getBookingById: builder.query({
             query: (bookingId) => ({
                 url: `${BOOKINGS_URL}/${bookingId}`,
@@ -82,4 +90,4 @@ export const bookingsApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { useCreateBookingMutation, useGetBookingByIdQuery, useUpdataPaymentMutation, useGetRideHistoryByUserIdQuery, useGetAvailableRideQuery,useUpdateRideStatusMutation,useUpdateNotificationStatusMutation,useDeleteNotificationMutation,useDeleteBookingMutation} = bookingsApiSlice;
+export const { useCreateBookingMutation,useUpdateAmountMutation, useGetBookingByIdQuery, useUpdataPaymentMutation, useGetRideHistoryByUserIdQuery, useGetAvailableRideQuery,useUpdateRideStatusMutation,useUpdateNotificationStatusMutation,useDeleteNotificationMutation,useDeleteBookingMutation} = bookingsApiSlice;

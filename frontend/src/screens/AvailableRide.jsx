@@ -1,7 +1,5 @@
 import React from "react";
 import { toast } from "react-toastify";
-
-
 import {
   useGetAvailableRideQuery,
   useUpdateRideStatusMutation,
@@ -11,34 +9,28 @@ import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
 
 const AvailableRide = () => {
-    const { userInfo } = useSelector((state) => state.auth);
-
-    console.log(userInfo.phoneNumber);
-
+  const { userInfo } = useSelector((state) => state.auth);
   const { data: rides, isLoading, error, refetch } = useGetAvailableRideQuery();
   const [updateRideStatus] = useUpdateRideStatusMutation();
 
-
-
   if (isLoading) {
-    return <Loader/>
+    return <Loader />;
   }
 
   if (error) {
     return toast.error("Error loading rides. Please try again later.");
   }
 
-  const handleStatusChange = async (
-    bookingId,
-    currentStatus
-  ) => {
-    
-   
-    let newStatus;
+  const handleStatusChange = async (bookingId, currentStatus, payment) => {
+    let newStatus,
+      updatedPayment = payment;
+
+    // Update status and payment fields
     if (currentStatus === "Pending") {
       newStatus = "Confirmed";
     } else if (currentStatus === "Confirmed") {
       newStatus = "Completed";
+      updatedPayment = true; // Mark payment as true when ride is completed
     } else {
       return; // No further action needed for "Completed"
     }
@@ -48,10 +40,10 @@ const AvailableRide = () => {
         bookingId,
         status: newStatus,
         driverName: userInfo.name,
-        driverPhoneNumber:userInfo.phoneNumber,
+        driverPhoneNumber: userInfo.phoneNumber,
+        payment: updatedPayment,
       }).unwrap(); // Call mutation to update status
       refetch();
-      
     } catch (error) {
       console.error("Failed to update ride status:", error);
     }
@@ -70,6 +62,7 @@ const AvailableRide = () => {
             <th>Start Location</th>
             <th>End Location</th>
             <th>Amount</th>
+            <th>Payment</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -86,6 +79,15 @@ const AvailableRide = () => {
               <td>${ride.amount}</td>
               <td>
                 <span
+                  className={`payment-badge ${
+                    ride.payment ? "paid" : "not-paid"
+                  }`}
+                >
+                  {ride.payment ? "True" : "False"}
+                </span>
+              </td>
+              <td>
+                <span
                   className={`status-badge ${
                     ride.status ? ride.status.toLowerCase() : "unknown"
                   }`}
@@ -97,14 +99,19 @@ const AvailableRide = () => {
                 {ride.status !== "Completed" ? (
                   <button
                     className="status-action-button"
-                    onClick={() => handleStatusChange(ride._id, ride.status)}
+                    onClick={() =>
+                      handleStatusChange(ride._id, ride.status, ride.payment)
+                    }
                   >
                     {ride.status === "Pending"
                       ? "Accept Ride"
                       : "Complete Ride"}
                   </button>
                 ) : (
-                  <button className="status-action-button btn btn-danger" disabled>
+                  <button
+                    className="status-action-button btn btn-danger"
+                    disabled
+                  >
                     Ride Completed
                   </button>
                 )}

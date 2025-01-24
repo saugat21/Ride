@@ -39,6 +39,28 @@ const createBooking = asyncHandler(async (req, res) => {
     }
 });
 
+//@desc upate amount only
+// @route/api/bookings/:id/amount
+// Patch
+const updateBookingAmount = async (req, res) => {
+    try {
+        const { bookingId } = req.params;
+        const { amount } = req.body;
+
+        const booking = await Booking.findById(bookingId);
+        if (!booking) {
+            return res.status(404).json({ message: "Booking not found" });
+        }
+
+        booking.amount = amount;
+        await booking.save();
+
+        res.status(200).json({ message: "Amount updated successfully", booking });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // @desc    Update payment and amount of an existing booking
 // @route   PUT /api/bookings/:id/payment
 // @access  Private
@@ -134,7 +156,7 @@ const getAvailableRide = asyncHandler(async (req, res) => {
     try {
 
         // Fetch rides with payment: true
-        const rides = await Booking.find({ payment: true })
+        const rides = await Booking.find({})
         // console.log(rides);
 
         if (!rides.length) {
@@ -157,12 +179,26 @@ const updateRideStatus = asyncHandler(async (req, res) => {
     const { status, driverName, driverPhoneNumber } = req.body;
 
     try {
+        // Prepare the update fields dynamically
+        const updateFields = {
+            status,
+        };
+
+        // Add driver details if status is "Confirmed"
+        if (status === "Confirmed") {
+            updateFields.driverName = driverName;
+            updateFields.driverPhoneNumber = driverPhoneNumber;
+        }
+
+        // Set payment to true if status is "Completed"
+        if (status === "Completed") {
+            updateFields.payment = true;
+        }
+
+        // Find and update the booking
         const updatedRide = await Booking.findByIdAndUpdate(
             bookingId,
-            {
-                status,
-                ...(status === "Confirmed" && { driverName, driverPhoneNumber }), // Update only for "Confirmed" status
-            },
+            updateFields,
             { new: true }
         );
 
@@ -176,6 +212,7 @@ const updateRideStatus = asyncHandler(async (req, res) => {
         res.status(500).json({ message: "Failed to update status", error });
     }
 });
+
 
 // @desc    Get booking details with id
 // @route   GET /api/bookings/bookingdetails/:bookingId
@@ -251,4 +288,4 @@ const deleteBooking = asyncHandler(async (req, res) => {
 });
 
 
-export { createBooking, getBookingById, updateBookingPayment, getRideHistoryById, getAvailableRide, updateRideStatus, getBookingDetailsById, markNotification, deleteNotification,deleteBooking };
+export { createBooking, getBookingById,updateBookingAmount, updateBookingPayment, getRideHistoryById, getAvailableRide, updateRideStatus, getBookingDetailsById, markNotification, deleteNotification,deleteBooking };
