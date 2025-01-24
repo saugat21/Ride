@@ -21,10 +21,14 @@ const PORT = process.env.PORT || 5000
 
 //yo chai frontend ko port ra backend ko port aarkai xa vane use garnu parxa hameley
 app.use(cors({
-    origin: ["https://ride-kappa.vercel.app/"], // Allow frontend
-    methods: "GET, POST, PUT, DELETE,PATCH",
-    credentials: true,
+    origin: ["https://ride-kappa.vercel.app/"], // Replace with your Vercel frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // ✅ Allow necessary methods
+    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow headers
+    credentials: true, // ✅ Allow cookies for authentication
 }));
+
+// ✅ Handle OPTIONS Preflight Requests
+app.options("*", cors());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
