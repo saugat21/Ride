@@ -36,7 +36,7 @@ const Login = () => {
       </div>
       <div
         className="card p-4  shadow rounded-4 login-form-container"
-        style={{ maxWidth: "400px", width: "100%" }}
+        style={{ maxWidth: "400px", width: "100%", minWidth: "280px" }}
       >
         <h2 className="mb-4 text-center stylish-heading">
           Welcome To Our App!
@@ -72,7 +72,9 @@ const Login = () => {
             Login
           </button>
           <div className="mt-3">
-            <p>Haven't signed up? <Link to="/register">Register</Link> </p>
+            <p>
+              Haven't signed up? <Link to="/register">Register</Link>{" "}
+            </p>
           </div>
         </form>
       </div>
