@@ -89,7 +89,7 @@ const userDashboard = () => {
            <h1>WANNA SHARE A RIDE?</h1>
            <button
              variant="primary"
-             className="btn btn-warning mt-3 mb--3"
+             className="btn btn-warning mt-3 mb-3"
              onClick={() => navigate("/user/book-ride")}
            >
              Book a Ride
