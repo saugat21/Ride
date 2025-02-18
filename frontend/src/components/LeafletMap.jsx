@@ -36,13 +36,12 @@ const LeafletMap = ({ userLocation }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={center}>
+      <Marker position={center} icon={customIcon}>
         <Popup>
           {userInfo?.location?.placeName
             ? `Location: ${userInfo.location.placeName}`
             : "Default Location"}
         </Popup>
-        icon={customIcon}
       </Marker>
     </MapContainer>
   );
