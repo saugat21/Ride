@@ -30,55 +30,6 @@ const Login = () => {
   };
 
   return (
-    // <div className="login-page d-flex justify-content-center align-items-center">
-    //   <div className="login-page-left">
-    //     <img src={Car} alt="Ride Sharing" className="login-image" />
-    //   </div>
-    //   <div
-    //     className="card p-4  shadow rounded-4 login-form-container"
-    //     style={{ maxWidth: "400px", width: "100%", minWidth: "280px" }}
-    //   >
-    //     <h2 className="mb-4 text-center stylish-heading">
-    //       Welcome To Our App!
-    //     </h2>
-    //     <form onSubmit={handleSubmit}>
-    //       <div className="mb-3">
-    //         <label htmlFor="email" className="form-label">
-    //           Email address
-    //         </label>
-    //         <input
-    //           type="email"
-    //           className="form-control"
-    //           id="email"
-    //           value={email}
-    //           onChange={(e) => setEmail(e.target.value)}
-    //           required
-    //         />
-    //       </div>
-    //       <div className="mb-3">
-    //         <label htmlFor="password" className="form-label">
-    //           Password
-    //         </label>
-    //         <input
-    //           type="password"
-    //           className="form-control"
-    //           id="password"
-    //           required
-    //           value={password}
-    //           onChange={(e) => setPassword(e.target.value)}
-    //         />
-    //       </div>
-    //       <button type="submit" className="btn btn-primary w-100">
-    //         Login
-    //       </button>
-    //       <div className="mt-3">
-    //         <p>
-    //           Haven't signed up? <Link to="/register">Register</Link>{" "}
-    //         </p>
-    //       </div>
-    //     </form>
-    //   </div>
-    // </div>
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
       <div className="row w-100 justify-content-center align-items-center">
         {/* Left Side Image - Visible only on larger screens */}

@@ -2,6 +2,16 @@ import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+// Custom marker icon
+const customIcon = new L.Icon({
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+});
+
 
 const LeafletMap = ({ userLocation }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -32,6 +42,7 @@ const LeafletMap = ({ userLocation }) => {
             ? `Location: ${userInfo.location.placeName}`
             : "Default Location"}
         </Popup>
+        icon={customIcon}
       </Marker>
     </MapContainer>
   );
