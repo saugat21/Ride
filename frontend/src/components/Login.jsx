@@ -93,7 +93,7 @@ const Login = () => {
 
         {/* Right Side - Login Form */}
         <div className="col-12 col-sm-10 col-md-8 col-lg-4">
-          <div className="card p-3 p-sm-4 shadow rounded-4 login-form-container">
+          <div className="card p-3 p-sm-4 shadow rounded-4 ">
             <h2
               className="mb-3 text-center stylish-heading"
               style={{ fontSize: "1.5rem" }}
