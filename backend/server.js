@@ -14,30 +14,13 @@ dotenv.config();
 
 //connecting database
 connectDB();
+const PORT = process.env.PORT || 5000
 
 const app = express();
 
-const PORT = process.env.PORT || 5000
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://ride-kappa.vercel.app"); // ✅ Replace with your Vercel URL
-    res.header("Access-Control-Allow-Methods", "GET, POST,PATCH, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.header("Access-Control-Allow-Credentials", "true");
-
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(204);
-    }
-
-    next();
-});
 //yo chai frontend ko port ra backend ko port aarkai xa vane use garnu parxa hameley
-app.use(cors({
-    origin: ["https://ride-kappa.vercel.app"], 
-    methods: ["GET", "POST", "PUT","PATCH", "DELETE", "OPTIONS"], 
-    allowedHeaders: ["Content-Type", "Authorization"], 
-    credentials: true,
-}));
+app.use(cors());
 
 
 // Middleware to parse JSON request bodies
@@ -52,11 +35,9 @@ app.use(cookieParser())
 app.use('/api/users', userRoute);
 app.use('/api/bookings', bookingRoute)
 
-app.get("/api/test", (req, res) => {
-    res.json({ message: "CORS working!" });
-});
+
 app.get('/', (req, res) => {
-    res.send("API is running...")
+    res.send("Hello API is running...")
 })
 
 

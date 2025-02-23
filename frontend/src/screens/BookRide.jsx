@@ -105,6 +105,16 @@ const BookRide = () => {
     }
   };
 
+  //form validation garako 
+  const isFormValid = () => {
+    return (
+      destinationPlace &&
+      destinationPlace.toString().trim() !== "" && 
+      destinationCoordinates.lat !== null &&
+      destinationCoordinates.lng !== null
+    );
+  };
+
   return (
     <div className="container mt-4">
       <h2 className="text-center mb-4 book-ride-title">
@@ -197,6 +207,7 @@ const BookRide = () => {
           <button
             type="submit"
             className="btn btn-warning w-100 btn-lg fw-bold text-dark"
+            disabled={!isFormValid()}
           >
             Book Ride
           </button>

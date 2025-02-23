@@ -4,6 +4,7 @@ import { Link, useNavigate,useLocation,Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { removeCredentials } from "../slices/authSlice";
 import { useDispatch } from "react-redux";
+import { useLogoutMutation } from "../slices/userApiSlice";
 import { toast } from "react-toastify";
 
 
@@ -12,6 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [logout] = useLogoutMutation();
 
   
 
@@ -32,9 +34,8 @@ const Header = () => {
   }
 
   const handleLogout = async () => {
-    // await logout().unwrap();
+    await logout().unwrap();
     dispatch(removeCredentials());
-    localStorage.removeItem("jwt");
     toast.success("Logout Successfull");
     navigate("/login");
   };
