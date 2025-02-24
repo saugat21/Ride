@@ -16,8 +16,8 @@ const BookRide = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [numberOfPeople, setNumberOfPeople] = useState("1");
   
-  const [payment, setPayment] = useState(false); // Initializing payment
-  const [amount, setAmount] = useState(0); // Initializing amount
+  const [payment, setPayment] = useState(false); 
+  const [amount, setAmount] = useState(0); 
 
   const [sourcePlace, setSourcePlace] = useState("");
   const [sourceCoordinates, setSourceCoordinates] = useState({
