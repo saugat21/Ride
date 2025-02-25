@@ -1,4 +1,5 @@
 import React from "react";
+import { useState,useEffect } from "react";
 import Logo from "../assets/ride-logoo.jpeg";
 import { Link, useNavigate,useLocation,Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -37,6 +38,7 @@ const Header = () => {
     await logout().unwrap();
     dispatch(removeCredentials());
     toast.success("Logout Successfull");
+    
     navigate("/login");
   };
 

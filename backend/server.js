@@ -7,7 +7,7 @@ import connectDB from "./config/Db.js";
 //importing routes
 import userRoute from "./route/userRoute.js"
 import bookingRoute from "./route/bookingRoute.js"
-import chatRoute from "./route/chatRoute.js"
+
 
 dotenv.config();
 
@@ -33,12 +33,12 @@ app.use(cookieParser())
 //route 
 app.use('/api/users', userRoute);
 app.use('/api/bookings', bookingRoute)
-app.use('/api/chats',chatRoute)
 
 
 app.get('/', (req, res) => {
     res.send("Hello API is running...")
 })
+
 
 
 

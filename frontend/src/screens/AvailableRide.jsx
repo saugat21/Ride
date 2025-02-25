@@ -1,5 +1,7 @@
-import React from "react";
+import React,{useState} from "react";
 import { toast } from "react-toastify";
+import { io } from "socket.io-client";
+import ChatModal from "../components/ChatModal";
 import {
   useGetAvailableRideQuery,
   useUpdateRideStatusMutation,
@@ -7,6 +9,7 @@ import {
 import "../css/AvailableRide.css";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
+
 
 const AvailableRide = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -42,8 +45,10 @@ const AvailableRide = () => {
         driverName: userInfo.name,
         driverPhoneNumber: userInfo.phoneNumber,
         payment: updatedPayment,
-      }).unwrap(); // Call mutation to update status
+      }).unwrap(); 
       refetch();
+
+    
     } catch (error) {
       console.error("Failed to update ride status:", error);
     }
@@ -120,6 +125,7 @@ const AvailableRide = () => {
           ))}
         </tbody>
       </table>
+     
     </div>
   );
 };

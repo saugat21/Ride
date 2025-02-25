@@ -19,8 +19,6 @@ const Notification = () => {
   const [updateNotificationStatus] = useUpdateNotificationStatusMutation();
   const [deleteNotification] = useDeleteNotificationMutation();
 
-  console.log(bookings);
-
   if (isLoading) return <p>Loading notifications...</p>;
   if (error) return <p>Error loading notifications. Please try again later.</p>;
 
@@ -47,6 +45,12 @@ const Notification = () => {
     } catch (error) {
       console.error("Failed to delete notification:", error);
     }
+  };
+
+  // Function to open chat modal
+  const openChatModal = (ride) => {
+    setSelectedRide(ride); // Set the selected ride
+    setShowChatModal(true); // Show the chat modal
   };
 
   return (
@@ -90,6 +94,7 @@ const Notification = () => {
                 >
                   <FaTimes />
                 </button>
+               
               </div>
             </div>
           ))}
@@ -97,6 +102,7 @@ const Notification = () => {
       ) : (
         <p>No notifications available.</p>
       )}
+     
     </div>
   );
 };
