@@ -7,6 +7,15 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+
+const customIcon = new L.Icon({
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+});
 const DestinationMap = ({ onSelectLocation }) => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedPlaceName, setSelectedPlaceName] = useState("");
@@ -23,7 +32,7 @@ const DestinationMap = ({ onSelectLocation }) => {
     });
 
     return selectedLocation === null ? null : (
-      <Marker position={selectedLocation}>
+      <Marker position={selectedLocation} icon={customIcon}>
         <Popup>{selectedPlaceName}</Popup>
       </Marker>
     );

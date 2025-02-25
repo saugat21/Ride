@@ -1,6 +1,7 @@
 import express from "express";
+import path from "path"
 import dotenv from "dotenv";
-import cors from "cors";
+// import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/Db.js";
@@ -19,7 +20,7 @@ const app = express();
 
 
 //yo chai frontend ko port ra backend ko port aarkai xa vane use garnu parxa hameley
-app.use(cors());
+// app.use(cors());
 
 
 // Middleware to parse JSON request bodies
@@ -34,10 +35,21 @@ app.use(cookieParser())
 app.use('/api/users', userRoute);
 app.use('/api/bookings', bookingRoute)
 
+const __dirname = path.resolve();
 
-app.get('/', (req, res) => {
-    res.send("Hello API is running...")
-})
+if (process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname,'/frontend/dist')))
+    app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'frontend','dist','index.html'))
+    })
+}else{  
+    app.get('/', (req, res) => {
+        res.send("Hello API is running...")
+    })
+}
+
+
+
 
 
 
