@@ -1,7 +1,5 @@
-import React,{useState} from "react";
+import React from "react";
 import { toast } from "react-toastify";
-import { io } from "socket.io-client";
-import ChatModal from "../components/ChatModal";
 import {
   useGetAvailableRideQuery,
   useUpdateRideStatusMutation,
@@ -13,8 +11,22 @@ import Loader from "../components/Loader";
 
 const AvailableRide = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const { data: rides, isLoading, error, refetch } = useGetAvailableRideQuery();
+  const {
+    data: rides,
+    isLoading,
+    error,
+    refetch,
+  } = useGetAvailableRideQuery(undefined, {
+    pollingInterval: 5000,
+  });
   const [updateRideStatus] = useUpdateRideStatusMutation();
+
+  // Check if the driver has an active ride
+  const hasActiveRide = rides?.some(
+    (ride) => ride.driverName === userInfo.name && ride.status !== "Completed"
+  );
+
+  
 
   if (isLoading) {
     return <Loader />;
@@ -33,9 +45,9 @@ const AvailableRide = () => {
       newStatus = "Confirmed";
     } else if (currentStatus === "Confirmed") {
       newStatus = "Completed";
-      updatedPayment = true; // Mark payment as true when ride is completed
+      updatedPayment = true;
     } else {
-      return; // No further action needed for "Completed"
+      return;
     }
 
     try {
@@ -45,12 +57,20 @@ const AvailableRide = () => {
         driverName: userInfo.name,
         driverPhoneNumber: userInfo.phoneNumber,
         payment: updatedPayment,
-      }).unwrap(); 
+      }).unwrap();
       refetch();
-
-    
     } catch (error) {
       console.error("Failed to update ride status:", error);
+    }
+  };
+
+  const handleAcceptRide = (ride) => {
+    if (hasActiveRide && ride.status === "Pending") {
+      toast.warning(
+        "You can't accept a ride until you complete the current one."
+      );
+    } else {
+      handleStatusChange(ride._id, ride.status, ride.payment);
     }
   };
 
@@ -104,9 +124,7 @@ const AvailableRide = () => {
                 {ride.status !== "Completed" ? (
                   <button
                     className="status-action-button"
-                    onClick={() =>
-                      handleStatusChange(ride._id, ride.status, ride.payment)
-                    }
+                    onClick={() => handleAcceptRide(ride)}
                   >
                     {ride.status === "Pending"
                       ? "Accept Ride"
@@ -125,7 +143,6 @@ const AvailableRide = () => {
           ))}
         </tbody>
       </table>
-     
     </div>
   );
 };

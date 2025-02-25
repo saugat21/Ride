@@ -13,7 +13,9 @@ const userDashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   // Fetch bookings data using RTK Query
-  const { data: bookings, isLoading } = useGetAvailableRideQuery();
+  const { data: bookings, isLoading } = useGetAvailableRideQuery(undefined,{
+    pollingInterval:3000,
+  });
 
   // State for unread notifications count
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);

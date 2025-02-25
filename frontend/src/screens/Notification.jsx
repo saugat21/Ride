@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import {
@@ -18,6 +18,13 @@ const Notification = () => {
   } = useGetAvailableRideQuery();
   const [updateNotificationStatus] = useUpdateNotificationStatusMutation();
   const [deleteNotification] = useDeleteNotificationMutation();
+
+    useEffect(() => {
+      
+      if (!isLoading && !error) {
+        refetch();
+      }
+    }, [bookings, isLoading, error, refetch]);
 
   if (isLoading) return <p>Loading notifications...</p>;
   if (error) return <p>Error loading notifications. Please try again later.</p>;
@@ -47,11 +54,7 @@ const Notification = () => {
     }
   };
 
-  // Function to open chat modal
-  const openChatModal = (ride) => {
-    setSelectedRide(ride); // Set the selected ride
-    setShowChatModal(true); // Show the chat modal
-  };
+  
 
   return (
     <div className="container mt-4">
@@ -100,7 +103,7 @@ const Notification = () => {
           ))}
         </div>
       ) : (
-        <p>No notifications available.</p>
+        <p className="text-bold text-center fs-2">No notifications available.</p>
       )}
      
     </div>
